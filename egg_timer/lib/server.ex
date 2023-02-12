@@ -30,4 +30,15 @@ defmodule EggTimer.Server do
 
     {:noreply, Map.put(timers, alarm.name, alarm)}
   end
+
+  def handle_cast(:stop, timers) do
+    # something goes wrong
+    {:stop, :we_broke_something, timers}
+  end
+
+  def handle_call(:status, _from, timers) do
+    status = timers |> Enum.map(fn {_name, alarm} -> Alarm.status(alarm) end)
+
+    {:reply, status, timers}
+  end
 end
