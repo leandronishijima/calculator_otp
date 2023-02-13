@@ -31,9 +31,9 @@ defmodule EggTimer.Server do
     {:noreply, Map.put(timers, alarm.name, alarm)}
   end
 
-  def handle_cast(:stop, timers) do
-    # something goes wrong
-    {:stop, :we_broke_something, timers}
+  def handle_cast({:stop, name}, timers) do
+    new_timers = Map.delete(timers, name)
+    {:noreply, new_timers}
   end
 
   def handle_call(:status, _from, timers) do
@@ -41,4 +41,7 @@ defmodule EggTimer.Server do
 
     {:reply, status, timers}
   end
+
+  def status(pid), do: GenServer.call(pid, :status)
+  def stop(pid, alarm_name), do: GenServer.cast(pid, {:stop, alarm_name})
 end
