@@ -25,12 +25,17 @@ defmodule EggTimer.Alarm do
   end
 
   def status(alarm) do
-    {alarm.name, alarm.duration, remaining(alarm)}
+    {alarm.name, alarm.duration,
+     %{
+       :hours => remaining(alarm, :hour),
+       :minutes => remaining(alarm, :minute),
+       :seconds => remaining(alarm, :second)
+     }}
   end
 
-  def remaining(alarm) do
+  defp remaining(alarm, result_type) do
     alarm.time
     |> DateTime.add(alarm.duration, :millisecond)
-    |> DateTime.diff(DateTime.utc_now())
+    |> DateTime.diff(DateTime.utc_now(), result_type)
   end
 end
