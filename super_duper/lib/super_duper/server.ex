@@ -31,7 +31,4 @@ defmodule SuperDuper.Server do
 
     {:error, "oh noes", state}
   end
-
-  def die(server), do: GenServer.cast(server, :die)
-  def say(server), do: GenServer.call(server, :say)
 end

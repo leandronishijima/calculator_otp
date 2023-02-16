@@ -3,16 +3,6 @@ defmodule SuperDuper do
   Documentation for `SuperDuper`.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> SuperDuper.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  def die(server), do: GenServer.cast(server, :die)
+  def say(server), do: GenServer.call(server, :say)
 end
