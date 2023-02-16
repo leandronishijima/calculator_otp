@@ -5,11 +5,14 @@ defmodule SuperDuper.Application do
 
   use Application
 
+  alias SuperDuper.Server
+
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: SuperDuper.Worker.start_link(arg)
-      # {SuperDuper.Worker, arg}
+      {Server, :superdave},
+      {Server, :superman},
+      {Server, :supermario}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

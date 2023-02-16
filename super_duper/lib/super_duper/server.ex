@@ -9,6 +9,10 @@ defmodule SuperDuper.Server do
     {:ok, Core.info(character)}
   end
 
+  def child_spec(name) do
+    %{id: name, start: {__MODULE__, :start_link, [name]}}
+  end
+
   def handle_cast(:die, state) do
     raise "Boom"
     {:noreply, state}
