@@ -26,6 +26,12 @@ defmodule SuperDuper.Server do
     GenServer.start_link(__MODULE__, character, name: character)
   end
 
+  def terminate(_reason, {name, _says} = state) do
+    IO.puts("Mayday! Mayday! #{name} going down...")
+
+    {:error, "oh noes", state}
+  end
+
   def die(server), do: GenServer.cast(server, :die)
   def say(server), do: GenServer.call(server, :say)
 end
