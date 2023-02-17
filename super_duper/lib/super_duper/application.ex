@@ -12,7 +12,8 @@ defmodule SuperDuper.Application do
     children = [
       {Server, :superdave},
       {Server, :superman},
-      {Server, :supermario}
+      {Server, :supermario},
+      {DynamicSupervisor, name: SuperDuper.DynamicSupervisor, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -4,15 +4,14 @@ defmodule SuperDuper do
   """
   alias SuperDuper.Server
 
-  @app __MODULE__.Supervisor
+  @app __MODULE__.DynamicSupervisor
 
   def add_character(name, says) do
-    Supervisor.start_child(@app, Server.child_spec({name, says}))
+    DynamicSupervisor.start_child(@app, Server.child_spec({name, says}))
   end
 
   def remove_character(name) do
-    Supervisor.terminate_child(@app, name)
-    Supervisor.delete_child(@app, name)
+    DynamicSupervisor.terminate_child(@app, name)
   end
 
   def say(character) do
