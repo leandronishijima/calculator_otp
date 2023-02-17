@@ -2,7 +2,24 @@ defmodule SuperDuper do
   @moduledoc """
   Documentation for `SuperDuper`.
   """
+  alias SuperDuper.Server
 
-  def die(server), do: GenServer.cast(server, :die)
-  def say(server), do: GenServer.call(server, :say)
+  @app __MODULE__.Supervisor
+
+  def add_character(name, says) do
+    Supervisor.start_child(@app, Server.child_spec({name, says}))
+  end
+
+  def remove_character(name) do
+    Supervisor.terminate_child(@app, name)
+    Supervisor.delete_child(@app, name)
+  end
+
+  def say(character) do
+    Server.say(character)
+  end
+
+  def die(character) do
+    Server.die(character)
+  end
 end
